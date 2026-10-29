@@ -2,16 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import {
-  getClub,
-  getMagazines,
-  issueHref,
-  issueLabel,
-  publishedMonth,
-  shortIssueLabel,
-  splitList,
-  toRoman,
-} from "@/lib/supabase"
+import { getMagazines, issueHref, issueLabel, publishedMonth, shortIssueLabel, toRoman } from "@/lib/supabase"
 
 export const revalidate = 300
 
@@ -24,9 +15,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Dergi() {
-  const [magazines, club] = await Promise.all([getMagazines(), getClub()])
-  const [current, ...previous] = magazines
-  const owners = splitList(club?.owners ?? null)
+  const [current, ...previous] = await getMagazines()
   const href = current ? issueHref(current) : null
   const month = current ? publishedMonth(current) : null
   const paragraphs = (current?.description ?? "")
@@ -98,14 +87,8 @@ export default async function Dergi() {
                   </a>
                 </div>
               )}
-              {owners.length > 0 && (
-                <p className="mt-8 border-t border-ink/30 pt-4 text-ink-soft">
-                  <span className="smallcaps text-rubric">{owners.length > 1 ? "Kulüp Başkanları" : "Kulüp Başkanı"}</span>
-                  <span className="ml-3 italic">{owners.join(", ")}</span>
-                </p>
-              )}
               {previous.length > 0 && (
-                <p className={`${owners.length > 0 ? "mt-2" : "mt-8 border-t border-ink/30 pt-4"} text-ink-soft`}>
+                <p className="mt-8 border-t border-ink/30 pt-4 text-ink-soft">
                   <span className="smallcaps text-rubric">{previous.length > 1 ? "Önceki Sayılar" : "Önceki Sayı"}</span>
                   {previous.map((magazine) => {
                     const previousHref = issueHref(magazine)
