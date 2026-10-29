@@ -43,6 +43,8 @@ const stories = [
   { numeral: "III", title: "Ayna Görüntüsü Moleküller", detail: "Kiralite · Kimya" },
 ]
 
+const issuePdf = "/dergi/naal-bilim-sayi-02.pdf"
+
 function hrefFor(url: string) {
   return url.startsWith("http") ? url : `https://${url}`
 }
@@ -152,15 +154,18 @@ export default async function Home() {
         <section id="dergi" className="mx-auto mt-24 max-w-page scroll-mt-6 px-4 md:px-6">
           <SectionTitle title="Naal Bilim Dergisi" />
           <div className="mt-12 grid items-center gap-12 md:grid-cols-[minmax(0,20rem)_1fr]">
-            <Image
-              src="/dergi-kapak.webp"
-              alt="Naal Bilim dergisi Sayı II kapağı"
-              width={720}
-              height={1020}
-              className="mx-auto h-auto w-full max-w-xs border border-ink/20 shadow-[0_18px_40px_-18px_rgba(46,31,18,0.55)]"
-            />
+            <a href={issuePdf} target="_blank" rel="noopener noreferrer" className="mx-auto block w-full max-w-xs">
+              <Image
+                src="/dergi-kapak.webp"
+                alt="Naal Bilim dergisi Sayı II kapağı"
+                width={720}
+                height={1020}
+                className="h-auto w-full border border-ink/20 shadow-[0_18px_40px_-18px_rgba(46,31,18,0.55)]"
+              />
+            </a>
             <div>
               <p className="smallcaps text-rubric">Sayı II · Işık Sayısı · MMXXVI</p>
+              <p className="mt-2 italic text-ink-soft">Yayımlandı · Kasım 2026</p>
               <p className="mt-4 text-lg leading-relaxed">
                 Kulübümüzün dergisi Naal Bilim&apos;in ikinci sayısı, 2026 Nobel ödüllerinden yola çıkarak ışığın üç
                 hikâyesini anlatıyor. Biyoloji, fizik ve kimya bölümlerinde öğrencilerimizin yazdığı makaleler,
@@ -175,6 +180,24 @@ export default async function Home() {
                   </li>
                 ))}
               </ol>
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <a
+                  href={issuePdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="smallcaps border border-rubric bg-rubric px-5 py-3 text-parchment-light hover:bg-ink hover:border-ink"
+                >
+                  Dergiyi Oku
+                </a>
+                <a
+                  href={issuePdf}
+                  download
+                  className="smallcaps border border-ink/50 px-5 py-3 text-ink hover:border-rubric hover:text-rubric"
+                >
+                  PDF İndir
+                </a>
+                <span className="text-sm italic text-ink-soft">48 sayfa · 6 MB</span>
+              </div>
             </div>
           </div>
         </section>
