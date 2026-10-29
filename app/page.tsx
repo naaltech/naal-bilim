@@ -198,6 +198,17 @@ export default async function Home() {
                 </a>
                 <span className="text-sm italic text-ink-soft">48 sayfa · 6 MB</span>
               </div>
+              <p className="mt-8 border-t border-ink/30 pt-4 text-ink-soft">
+                <span className="smallcaps text-rubric">Önceki Sayı</span>
+                <a
+                  href="https://nevzatayazal.meb.k12.tr/meb_iys_dosyalar/34/21/964159/fotograf_galerisi_3859407.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-3 italic hover:text-rubric hover:underline"
+                >
+                  Sayı I · Naal Bilim 2025
+                </a>
+              </p>
             </div>
           </div>
         </section>
