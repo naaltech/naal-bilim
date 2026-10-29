@@ -185,7 +185,7 @@ export default async function Home() {
             <KunyeRow label="Kulüp">{club?.title || "Bilim Kulübü"}</KunyeRow>
             <KunyeRow label="Okul">Nevzat Ayaz Anadolu Lisesi</KunyeRow>
             {owners.length > 0 && (
-              <KunyeRow label="Kulüp Başkanları">
+              <KunyeRow label={owners.length > 1 ? "Kulüp Başkanları" : "Kulüp Başkanı"}>
                 {owners.map((owner) => (
                   <span key={owner} className="block">{owner}</span>
                 ))}
