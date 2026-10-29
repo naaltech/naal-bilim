@@ -1,17 +1,17 @@
 import Image from "next/image"
 
 const navItems = [
-  { href: "#atolye", label: "Atölye", desktopOnly: true },
-  { href: "#dergi", label: "Dergi" },
-  { href: "#basvuru", label: "Başvuru" },
-  { href: "#kunye", label: "Künye" },
+  { href: "/#atolye", label: "Atölye", desktopOnly: true },
+  { href: "/dergi", label: "Dergi" },
+  { href: "/basvuru", label: "Başvuru" },
+  { href: "/#kunye", label: "Künye" },
 ]
 
 export default function Header() {
   return (
     <header className="border-b border-ink/25">
       <div className="mx-auto flex h-16 max-w-page items-center justify-between gap-4 px-4 md:px-6">
-        <a href="#" className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <a href="/" className="flex shrink-0 items-center gap-2 sm:gap-3">
           <Image src="/bilim-logo.webp" alt="" width={52} height={35} className="h-auto w-10 sm:w-[52px]" priority />
           <span className="whitespace-nowrap font-display text-base font-semibold uppercase tracking-[0.12em] text-ink sm:text-lg sm:tracking-[0.18em]">Naal Bilim</span>
         </a>
