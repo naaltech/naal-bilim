@@ -59,10 +59,6 @@
     @apply inline-block h-1.5 w-1.5 rotate-45 bg-rubric;
   }
 
-  .leader {
-    @apply mx-2 mb-[0.35em] flex-1 self-end border-b border-dotted border-ink/50;
-  }
-
   .dropcap::first-letter {
     @apply float-left mr-2 mt-1 font-display text-[3.6rem] font-semibold leading-[0.8] text-rubric;
   }

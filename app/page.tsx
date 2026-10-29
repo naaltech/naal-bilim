@@ -12,25 +12,21 @@ const activities = [
   {
     numeral: "I",
     title: "Söyleşiler",
-    gloss: "conversazioni",
     text: "Alanında uzman bilim insanlarını okulumuzda ağırlıyor, merak ettiklerimizi doğrudan onlara soruyoruz.",
   },
   {
     numeral: "II",
     title: "Geziler",
-    gloss: "viaggi",
     text: "Müzeleri, laboratuvarları ve araştırma merkezlerini ziyaret ederek bilimi yerinde görüyoruz.",
   },
   {
     numeral: "III",
     title: "Çalıştaylar",
-    gloss: "laboratori",
     text: "İç ve dış çalıştaylarda kara delikler gibi farklı konuları araştırıp tartışıyoruz.",
   },
   {
     numeral: "IV",
     title: "Belgesel Analizleri",
-    gloss: "documentari",
     text: "Bilim belgesellerini birlikte izliyor, ardından bilimsel yönlerini konuşuyoruz.",
   },
 ]
@@ -53,11 +49,13 @@ function linkLabel(url: string) {
   }
 }
 
-function SectionTitle({ title, gloss }: { title: string; gloss: string }) {
+function SectionTitle({ title }: { title: string }) {
   return (
     <div className="text-center">
       <h2 className="text-4xl font-semibold italic tracking-tight md:text-5xl">{title}</h2>
-      <p className="mt-2 text-sm italic text-ink-soft">{gloss}</p>
+      <div className="rule mx-auto mt-4 max-w-[12rem]">
+        <span className="diamond" />
+      </div>
     </div>
   )
 }
@@ -112,7 +110,7 @@ export default async function Home() {
         </section>
 
         <section id="atolye" className="mx-auto mt-24 max-w-page scroll-mt-6 px-4 md:px-6">
-          <SectionTitle title="Atölyemiz" gloss="laboratorio · atölye" />
+          <SectionTitle title="Atölyemiz" />
           <div className="mt-10 gap-10 text-justify text-lg leading-relaxed [hyphens:auto] md:columns-2">
             {paragraphs.map((paragraph, index) => (
               <p key={paragraph} className={index === 0 ? "dropcap mb-4" : "mb-4"}>
@@ -122,10 +120,7 @@ export default async function Home() {
           </div>
 
           <div className="mx-auto mt-16 max-w-3xl">
-            <div className="flex items-baseline justify-between">
-              <h3 className="text-2xl font-semibold italic">Neler Yapıyoruz?</h3>
-              <span className="text-sm italic text-ink-soft">attività · etkinlikler</span>
-            </div>
+            <h3 className="text-2xl font-semibold italic">Neler Yapıyoruz?</h3>
             <div className="mt-1 flex items-center">
               <span className="diamond" />
               <span className="h-px flex-1 bg-rubric/70" />
@@ -136,8 +131,6 @@ export default async function Home() {
                   <div className="flex items-baseline text-lg">
                     <span className="w-10 shrink-0 font-display font-semibold text-rubric">{activity.numeral}</span>
                     <span className="font-medium">{activity.title}</span>
-                    <span className="leader" />
-                    <span className="text-sm italic text-ink-soft">{activity.gloss}</span>
                   </div>
                   <p className="pl-10 text-ink-soft">{activity.text}</p>
                 </li>
@@ -147,7 +140,7 @@ export default async function Home() {
         </section>
 
         <section id="dergi" className="mx-auto mt-24 max-w-page scroll-mt-6 px-4 md:px-6">
-          <SectionTitle title="Naal Bilim Dergisi" gloss="rivista · dergi" />
+          <SectionTitle title="Naal Bilim Dergisi" />
           <div className="mt-12 grid items-center gap-12 md:grid-cols-[minmax(0,20rem)_1fr]">
             <Image
               src="/dergi-kapak.webp"
@@ -177,7 +170,7 @@ export default async function Home() {
         </section>
 
         <section id="kunye" className="mx-auto mt-24 max-w-page scroll-mt-6 px-4 md:px-6">
-          <SectionTitle title="Künye" gloss="colophon · künye" />
+          <SectionTitle title="Künye" />
           <dl className="mx-auto mt-10 max-w-2xl">
             <KunyeRow label="Kulüp">{club?.title || "Bilim Kulübü"}</KunyeRow>
             <KunyeRow label="Okul">Nevzat Ayaz Anadolu Lisesi</KunyeRow>
