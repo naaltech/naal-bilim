@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { getClub, instagramHandle, splitList } from "@/lib/supabase"
+import { getClub, getMagazines, instagramHandle, issueLabel, splitList, toRoman } from "@/lib/supabase"
 
 export const revalidate = 300
 
@@ -71,7 +71,8 @@ function KunyeRow({ label, children }: { label: string; children: React.ReactNod
 }
 
 export default async function Home() {
-  const club = await getClub()
+  const [club, magazines] = await Promise.all([getClub(), getMagazines()])
+  const magazine = magazines[0]
   const instagramAccounts = splitList(club?.instagram ?? "naalbilim").map(instagramHandle)
   const owners = splitList(club?.owners ?? null)
   const links = splitList(club?.urls ?? null)
@@ -146,30 +147,37 @@ export default async function Home() {
 
         <section id="dergi" className="mx-auto mt-24 max-w-page scroll-mt-6 px-4 md:px-6">
           <SectionTitle title="Naal Bilim Dergisi" />
-          <div className="mx-auto mt-10 grid max-w-3xl items-center gap-10 sm:grid-cols-[10rem_1fr]">
-            <a href="/dergi" className="mx-auto block w-40">
-              <Image
-                src="/dergi-kapak.webp"
-                alt="Naal Bilim dergisi Sayı II kapağı"
-                width={720}
-                height={1020}
-                className="h-auto w-full border border-ink/20 shadow-[0_18px_40px_-18px_rgba(46,31,18,0.55)]"
-              />
-            </a>
-            <div className="text-center sm:text-left">
-              <p className="smallcaps text-rubric">Sayı II · Işık Sayısı · MMXXVI</p>
-              <p className="mt-3 text-lg leading-relaxed">
-                Öğrencilerimizin yazdığı bilim makalelerini ve bulmacaları yayımladığımız dergimizin ikinci sayısı
-                ışığın üç hikâyesini anlatıyor.
-              </p>
-              <a
-                href="/dergi"
-                className="smallcaps mt-6 inline-block border border-rubric bg-rubric px-5 py-3 text-parchment-light hover:bg-ink hover:border-ink"
-              >
-                Dergiyi İncele
-              </a>
+          {magazine ? (
+            <div
+              className={`mx-auto mt-10 grid max-w-3xl items-center gap-10 ${magazine.cover_url ? "sm:grid-cols-[10rem_1fr]" : ""}`}
+            >
+              {magazine.cover_url && (
+                <a href="/dergi" className="mx-auto block w-40">
+                  <Image
+                    src={magazine.cover_url}
+                    alt={`Naal Bilim dergisi Sayı ${toRoman(magazine.issue_number)} kapağı`}
+                    width={720}
+                    height={1020}
+                    className="h-auto w-full border border-ink/20 shadow-[0_18px_40px_-18px_rgba(46,31,18,0.55)]"
+                  />
+                </a>
+              )}
+              <div className={magazine.cover_url ? "text-center sm:text-left" : "text-center"}>
+                <p className="smallcaps text-rubric">{issueLabel(magazine)}</p>
+                <p className="mt-3 text-lg leading-relaxed">{magazine.summary || magazine.description}</p>
+                <a
+                  href="/dergi"
+                  className="smallcaps mt-6 inline-block border border-rubric bg-rubric px-5 py-3 text-parchment-light hover:bg-ink hover:border-ink"
+                >
+                  Dergiyi İncele
+                </a>
+              </div>
             </div>
-          </div>
+          ) : (
+            <p className="mx-auto mt-10 max-w-2xl text-center text-lg italic text-ink-soft">
+              Naal Bilim&apos;in yeni sayısı hazırlanıyor.
+            </p>
+          )}
         </section>
 
         <section id="basvuru" className="mx-auto mt-24 max-w-page scroll-mt-6 px-4 md:px-6">

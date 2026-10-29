@@ -2,6 +2,18 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import {
+  getClub,
+  getMagazines,
+  issueHref,
+  issueLabel,
+  publishedMonth,
+  shortIssueLabel,
+  splitList,
+  toRoman,
+} from "@/lib/supabase"
+
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: "Dergi",
@@ -11,15 +23,17 @@ export const metadata: Metadata = {
   },
 }
 
-const stories = [
-  { numeral: "I", title: "Işıkla Beyin Kontrolü", detail: "Optogenetik · Tıp" },
-  { numeral: "II", title: "Buzun Altında Hayalet Avı", detail: "IceCube · Fizik" },
-  { numeral: "III", title: "Ayna Görüntüsü Moleküller", detail: "Kiralite · Kimya" },
-]
+export default async function Dergi() {
+  const [magazines, club] = await Promise.all([getMagazines(), getClub()])
+  const [current, ...previous] = magazines
+  const owners = splitList(club?.owners ?? null)
+  const href = current ? issueHref(current) : null
+  const month = current ? publishedMonth(current) : null
+  const paragraphs = (current?.description ?? "")
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
 
-const issuePdf = "/dergi/naal-bilim-sayi-02.pdf"
-
-export default function Dergi() {
   return (
     <>
       <Header />
@@ -34,57 +48,92 @@ export default function Dergi() {
           <span className="diamond" />
         </div>
 
-        <div className="mt-12 grid items-center gap-12 md:grid-cols-[minmax(0,20rem)_1fr]">
-          <a href={issuePdf} target="_blank" rel="noopener noreferrer" className="mx-auto block w-full max-w-xs">
-            <Image
-              src="/dergi-kapak.webp"
-              alt="Naal Bilim dergisi Sayı II kapağı"
-              width={720}
-              height={1020}
-              priority
-              className="h-auto w-full border border-ink/20 shadow-[0_18px_40px_-18px_rgba(46,31,18,0.55)]"
-            />
-          </a>
-          <div>
-            <p className="smallcaps text-rubric">Sayı II · Işık Sayısı · MMXXVI</p>
-            <p className="mt-2 italic text-ink-soft">Yayımlandı · Kasım 2026</p>
-            <p className="mt-4 text-lg leading-relaxed">
-              Kulübümüzün dergisi Naal Bilim&apos;in ikinci sayısı, 2026 Nobel ödüllerinden yola çıkarak ışığın üç
-              hikâyesini anlatıyor. Biyoloji, fizik ve kimya bölümlerinde öğrencilerimizin yazdığı makaleler,
-              bulmacalar ve kaynakçayla 48 sayfa.
-            </p>
-            <ol className="mt-8 grid gap-6 sm:grid-cols-3">
-              {stories.map((story) => (
-                <li key={story.title} className="border-t border-ink/30 pt-4">
-                  <span className="font-display text-2xl font-semibold text-rubric">{story.numeral}</span>
-                  <p className="mt-1 text-lg font-medium leading-snug">{story.title}</p>
-                  <p className="mt-1 text-sm italic text-ink-soft">{story.detail}</p>
-                </li>
+        {current ? (
+          <div className={`mt-12 grid items-center gap-12 ${current.cover_url ? "md:grid-cols-[minmax(0,20rem)_1fr]" : ""}`}>
+            {current.cover_url && (
+              <a
+                href={href ?? undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-auto block w-full max-w-xs"
+              >
+                <Image
+                  src={current.cover_url}
+                  alt={`Naal Bilim dergisi Sayı ${toRoman(current.issue_number)} kapağı`}
+                  width={720}
+                  height={1020}
+                  priority
+                  className="h-auto w-full border border-ink/20 shadow-[0_18px_40px_-18px_rgba(46,31,18,0.55)]"
+                />
+              </a>
+            )}
+            <div>
+              <p className="smallcaps text-rubric">{issueLabel(current)}</p>
+              {month && <p className="mt-2 italic text-ink-soft">Yayımlandı · {month}</p>}
+              {paragraphs.map((paragraph) => (
+                <p key={paragraph} className="mt-4 text-lg leading-relaxed">
+                  {paragraph}
+                </p>
               ))}
-            </ol>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href={issuePdf}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="smallcaps border border-rubric bg-rubric px-5 py-3 text-parchment-light hover:bg-ink hover:border-ink"
-              >
-                Dergiyi Oku
-              </a>
+              {current.stories.length > 0 && (
+                <ol className="mt-8 grid gap-6 sm:grid-cols-3">
+                  {current.stories.map((story, index) => (
+                    <li key={`${index}-${story.title}`} className="border-t border-ink/30 pt-4">
+                      <span className="font-display text-2xl font-semibold text-rubric">{toRoman(index + 1)}</span>
+                      <p className="mt-1 text-lg font-medium leading-snug">{story.title}</p>
+                      {story.detail && <p className="mt-1 text-sm italic text-ink-soft">{story.detail}</p>}
+                    </li>
+                  ))}
+                </ol>
+              )}
+              {href && (
+                <div className="mt-10 flex flex-wrap items-center gap-4">
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="smallcaps border border-rubric bg-rubric px-5 py-3 text-parchment-light hover:bg-ink hover:border-ink"
+                  >
+                    Dergiyi Oku
+                  </a>
+                </div>
+              )}
+              {owners.length > 0 && (
+                <p className="mt-8 border-t border-ink/30 pt-4 text-ink-soft">
+                  <span className="smallcaps text-rubric">{owners.length > 1 ? "Kulüp Başkanları" : "Kulüp Başkanı"}</span>
+                  <span className="ml-3 italic">{owners.join(", ")}</span>
+                </p>
+              )}
+              {previous.length > 0 && (
+                <p className={`${owners.length > 0 ? "mt-2" : "mt-8 border-t border-ink/30 pt-4"} text-ink-soft`}>
+                  <span className="smallcaps text-rubric">{previous.length > 1 ? "Önceki Sayılar" : "Önceki Sayı"}</span>
+                  {previous.map((magazine) => {
+                    const previousHref = issueHref(magazine)
+                    return previousHref ? (
+                      <a
+                        key={magazine.id}
+                        href={previousHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-3 italic hover:text-rubric hover:underline"
+                      >
+                        {shortIssueLabel(magazine)}
+                      </a>
+                    ) : (
+                      <span key={magazine.id} className="ml-3 italic">
+                        {shortIssueLabel(magazine)}
+                      </span>
+                    )
+                  })}
+                </p>
+              )}
             </div>
-            <p className="mt-8 border-t border-ink/30 pt-4 text-ink-soft">
-              <span className="smallcaps text-rubric">Önceki Sayı</span>
-              <a
-                href="https://nevzatayazal.meb.k12.tr/meb_iys_dosyalar/34/21/964159/fotograf_galerisi_3859407.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-3 italic hover:text-rubric hover:underline"
-              >
-                Sayı I · Naal Bilim 2025
-              </a>
-            </p>
           </div>
-        </div>
+        ) : (
+          <p className="mx-auto mt-12 max-w-2xl text-center text-lg italic text-ink-soft">
+            Naal Bilim&apos;in yeni sayısı hazırlanıyor.
+          </p>
+        )}
       </main>
 
       <Footer />
