@@ -1,8 +1,9 @@
 import Image from "next/image"
 
 const navItems = [
-  { href: "#atolye", label: "Atölye" },
+  { href: "#atolye", label: "Atölye", desktopOnly: true },
   { href: "#dergi", label: "Dergi" },
+  { href: "#basvuru", label: "Başvuru" },
   { href: "#kunye", label: "Künye" },
 ]
 
@@ -14,9 +15,13 @@ export default function Header() {
           <Image src="/bilim-logo.webp" alt="" width={52} height={35} className="h-auto w-10 sm:w-[52px]" priority />
           <span className="whitespace-nowrap font-display text-base font-semibold uppercase tracking-[0.12em] text-ink sm:text-lg sm:tracking-[0.18em]">Naal Bilim</span>
         </a>
-        <nav className="flex items-center gap-4 text-[1.05rem] italic text-ink-soft sm:gap-7">
+        <nav className="flex items-center gap-3 text-base italic text-ink-soft sm:gap-7 sm:text-[1.05rem]">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="hover:text-rubric hover:underline">
+            <a
+              key={item.href}
+              href={item.href}
+              className={`hover:text-rubric hover:underline${item.desktopOnly ? " hidden sm:inline" : ""}`}
+            >
               {item.label}
             </a>
           ))}

@@ -45,6 +45,8 @@ const stories = [
 
 const issuePdf = "/dergi/naal-bilim-sayi-02.pdf"
 
+const applicationForm = "https://tally.so/r/M11WDg"
+
 function hrefFor(url: string) {
   return url.startsWith("http") ? url : `https://${url}`
 }
@@ -202,6 +204,24 @@ export default async function Home() {
                 </a>
               </p>
             </div>
+          </div>
+        </section>
+
+        <section id="basvuru" className="mx-auto mt-24 max-w-page scroll-mt-6 px-4 md:px-6">
+          <SectionTitle title="Başvuru" />
+          <div className="mx-auto mt-10 max-w-2xl text-center">
+            <p className="text-lg leading-relaxed">
+              Bilime merakı olan her öğrencimizi kulübümüze bekliyoruz. Söyleşilerde, gezilerde, çalıştaylarda ya da
+              Naal Bilim dergisinin yeni sayısında yer almak istiyorsan başvuru formunu doldurman yeterli.
+            </p>
+            <a
+              href={applicationForm}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="smallcaps mt-8 inline-block border border-rubric bg-rubric px-5 py-3 text-parchment-light hover:bg-ink hover:border-ink"
+            >
+              Başvuru Formu
+            </a>
           </div>
         </section>
 
