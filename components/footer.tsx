@@ -16,13 +16,15 @@ export default function Footer() {
           <Image src="/naal-logo.webp" alt="Nevzat Ayaz Anadolu Lisesi" width={40} height={62} className="h-auto w-10" />
         </div>
         <div className="mt-10 space-y-1 pb-10 text-center text-sm italic text-ink-soft">
-          <p>© {new Date().getFullYear()} Nevzat Ayaz Anadolu Lisesi Bilim Kulübü</p>
+          <p>
+            © {new Date().getFullYear()} Nevzat Ayaz Anadolu Lisesi Bilim Kulübü. | Bu proje{" "}
+            <a href="https://raw.githubusercontent.com/naaltech/naal-bilim/refs/heads/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-rubric hover:underline">GPLv3</a>{" "}
+            ile lisanslanmıştır.
+          </p>
           <p>
             <a href="https://naal.org.tr" target="_blank" rel="noopener noreferrer" className="hover:text-rubric hover:underline">Etkileşim Ağı</a>
             <span className="mx-2">·</span>
             <a href="https://github.com/naaltech/naal-bilim" target="_blank" rel="noopener noreferrer" className="hover:text-rubric hover:underline">GitHub</a>
-            <span className="mx-2">·</span>
-            <a href="https://github.com/naaltech/naal-bilim/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-rubric hover:underline">GPLv3</a>
           </p>
         </div>
       </div>
