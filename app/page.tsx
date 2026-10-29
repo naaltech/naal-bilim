@@ -29,6 +29,12 @@ const activities = [
     title: "Belgesel Analizleri",
     text: "Bilim belgesellerini birlikte izliyor, ardından bilimsel yönlerini konuşuyoruz.",
   },
+  {
+    numeral: "V",
+    title: "Dergiler",
+    text: "Naal Bilim dergisini hazırlıyor, öğrencilerimizin yazdığı bilim makalelerini bulmacalarla birlikte yayımlıyoruz.",
+    href: "#dergi",
+  },
 ]
 
 const stories = [
@@ -130,7 +136,11 @@ export default async function Home() {
                 <li key={activity.title} className="py-3">
                   <div className="flex items-baseline text-lg">
                     <span className="w-10 shrink-0 font-display font-semibold text-rubric">{activity.numeral}</span>
-                    <span className="font-medium">{activity.title}</span>
+                    {activity.href ? (
+                      <a href={activity.href} className="font-medium hover:text-rubric hover:underline">{activity.title}</a>
+                    ) : (
+                      <span className="font-medium">{activity.title}</span>
+                    )}
                   </div>
                   <p className="pl-10 text-ink-soft">{activity.text}</p>
                 </li>
