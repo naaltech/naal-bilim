@@ -1,22 +1,20 @@
 import Link from "next/link"
 import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { Button } from "@/components/ui/button"
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <>
       <Header />
-      <section className="flex flex-1 items-center justify-center px-4 py-24">
-        <div className="space-y-4 text-center">
-          <h1 className="text-4xl font-bold tracking-tighter">Sayfa bulunamadı</h1>
-          <p className="text-muted-foreground">Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.</p>
-          <Button asChild>
-            <Link href="/">Ana Sayfaya Dön</Link>
-          </Button>
+      <main className="mx-auto flex min-h-[70vh] max-w-page flex-col items-center justify-center px-4 text-center">
+        <p className="smallcaps text-rubric">Sayfa bulunamadı</p>
+        <h1 className="mt-4 text-5xl font-semibold italic">Bu sayfa defterde yok.</h1>
+        <div className="rule mt-6 w-full max-w-xs">
+          <span className="diamond" />
         </div>
-      </section>
-      <Footer />
-    </main>
+        <Link href="/" className="mt-6 text-lg italic text-ink-soft hover:text-rubric hover:underline">
+          Ana sayfaya dön
+        </Link>
+      </main>
+    </>
   )
 }

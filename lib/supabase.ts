@@ -13,16 +13,6 @@ export interface Club {
   urls: string | null
 }
 
-export interface InstagramPost {
-  id: number
-  name: string | null
-  user_name: string | null
-  time: string | null
-  description: string | null
-  image_links: { links: string[] } | null
-  post_link: string | null
-}
-
 let client: SupabaseClient | null = null
 
 function getClient() {
@@ -56,21 +46,4 @@ export async function getClub(): Promise<Club | null> {
     return null
   }
   return data as Club | null
-}
-
-export async function getInstagramPosts(accounts: string[], limit = 8): Promise<InstagramPost[]> {
-  const supabase = getClient()
-  if (!supabase || accounts.length === 0) return []
-  const handles = accounts.map((account) => instagramHandle(account).toLowerCase())
-  const { data, error } = await supabase
-    .from('posts_instagram')
-    .select('id, name, user_name, time, description, image_links, post_link')
-    .in('user_name', handles)
-    .order('time', { ascending: false })
-    .limit(limit)
-  if (error) {
-    console.error('Failed to load Instagram posts:', error.message)
-    return []
-  }
-  return data as InstagramPost[]
 }

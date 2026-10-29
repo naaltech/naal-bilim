@@ -1,17 +1,28 @@
-import Link from "next/link"
+import Image from "next/image"
 
 export default function Footer() {
   return (
-    <footer className="bg-muted/30 border-t border-border/50 mt-auto">
-      <div className="container max-w-7xl mx-auto px-4 md:px-6 py-6">
-        <div className="text-center">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Nevzat Ayaz Anadolu Lisesi Bilim Kulübü. | Bu proje <Link href="https://github.com/naaltech/naal-bilim/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GPLv3</Link> ile lisanslanmıştır.
-          </p>
-          <p className="text-xs text-muted-foreground mt-1">
-            <Link href="https://naal.org.tr" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Etkileşim Ağı</Link>
-            {" · "}
-            Açık Kaynak: <Link href="https://github.com/naaltech/naal-bilim" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub</Link>
+    <footer className="mt-24 border-t border-ink/25">
+      <div className="mx-auto max-w-page px-4 pt-16 md:px-6">
+        <Image
+          src="/agac.webp"
+          alt="Kökleri ve dallarıyla bir ağaç çizimi"
+          width={1100}
+          height={976}
+          className="mx-auto h-auto w-full max-w-xl"
+        />
+        <div className="mt-10 flex items-center justify-center gap-8">
+          <Image src="/bilim-logo.webp" alt="Bilim Kulübü" width={96} height={65} className="h-auto w-24" />
+          <Image src="/naal-logo.webp" alt="Nevzat Ayaz Anadolu Lisesi" width={40} height={62} className="h-auto w-10" />
+        </div>
+        <div className="mt-10 space-y-1 pb-10 text-center text-sm italic text-ink-soft">
+          <p>© {new Date().getFullYear()} Nevzat Ayaz Anadolu Lisesi Bilim Kulübü</p>
+          <p>
+            <a href="https://naal.org.tr" target="_blank" rel="noopener noreferrer" className="hover:text-rubric hover:underline">Etkileşim Ağı</a>
+            <span className="mx-2">·</span>
+            <a href="https://github.com/naaltech/naal-bilim" target="_blank" rel="noopener noreferrer" className="hover:text-rubric hover:underline">GitHub</a>
+            <span className="mx-2">·</span>
+            <a href="https://github.com/naaltech/naal-bilim/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-rubric hover:underline">GPLv3</a>
           </p>
         </div>
       </div>
