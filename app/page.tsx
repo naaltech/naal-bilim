@@ -189,14 +189,6 @@ export default async function Home() {
                 >
                   Dergiyi Oku
                 </a>
-                <a
-                  href={issuePdf}
-                  download
-                  className="smallcaps border border-ink/50 px-5 py-3 text-ink hover:border-rubric hover:text-rubric"
-                >
-                  PDF İndir
-                </a>
-                <span className="text-sm italic text-ink-soft">48 sayfa · 6 MB</span>
               </div>
               <p className="mt-8 border-t border-ink/30 pt-4 text-ink-soft">
                 <span className="smallcaps text-rubric">Önceki Sayı</span>
