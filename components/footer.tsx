@@ -12,7 +12,7 @@ export default function Footer() {
           className="mx-auto h-auto w-full max-w-xl"
         />
         <div className="mt-10 flex items-center justify-center gap-8">
-          <Image src="/bilim-logo.webp" alt="Bilim Kulübü" width={96} height={65} className="h-auto w-24" />
+          <Image src="/bilim-logo.webp" alt="Bilim Kulübü" width={96} height={70} className="h-auto w-24" />
           <Image src="/naal-logo.webp" alt="Nevzat Ayaz Anadolu Lisesi" width={40} height={62} className="h-auto w-10" />
         </div>
         <div className="mt-10 space-y-1 pb-10 text-center text-sm italic text-ink-soft">
