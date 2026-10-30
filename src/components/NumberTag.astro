@@ -1,0 +1,10 @@
+---
+interface Props {
+  index: number
+}
+
+const tagColors = ["bg-primary", "bg-accent-cyan", "bg-accent-yellow"]
+const { index } = Astro.props
+---
+
+<span class={`tag ${tagColors[index % tagColors.length]}`}><slot /></span>

@@ -1,0 +1,60 @@
+---
+const pages = [
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/dergi", label: "Dergi" },
+  { href: "/#calistay", label: "Çalıştay" },
+  { href: "/basvuru", label: "Başvuru" },
+  { href: "/#instagram", label: "Instagram" },
+]
+---
+
+<footer class="border-t bg-muted/60">
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <!--
+    <img
+      src="/agac.webp"
+      alt="Kökleri ve dallarıyla bir ağaç çizimi"
+      width="1100"
+      height="976"
+      class="mx-auto mb-10 h-auto w-full max-w-xl"
+    />
+    -->
+    <div class="grid gap-8 md:grid-cols-3">
+      <div>
+        <h3 class="mb-2 text-lg font-semibold text-foreground">Bilim Kulübü</h3>
+        <p class="text-sm text-muted-foreground">Nevzat Ayaz Anadolu Lisesi Bilim Kulübü</p>
+      </div>
+      <div>
+        <h4 class="mb-2 text-sm font-semibold text-foreground">Sayfalar</h4>
+        <ul class="space-y-1 text-sm text-muted-foreground">
+          {pages.map((page) => (
+            <li>
+              <a href={page.href} class="hover:text-foreground">{page.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-2 text-sm font-semibold text-foreground">İletişim</h4>
+        <div class="space-y-1 text-sm text-muted-foreground">
+          <p>Nevzat Ayaz Anadolu Lisesi</p>
+          <p>
+            <a href="mailto:bilim@naal.org.tr" class="underline hover:text-foreground">bilim@naal.org.tr</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 border-t pt-6 text-center text-sm text-muted-foreground">
+      <p class="mb-2">
+        © {new Date().getFullYear()} Nevzat Ayaz Anadolu Lisesi Bilim Kulübü. | Bu proje{" "}
+        <a href="https://raw.githubusercontent.com/naaltech/naal-bilim/refs/heads/main/LICENSE" target="_blank" rel="noopener noreferrer" class="underline hover:text-foreground">GPLv3</a>{" "}
+        ile lisanslanmıştır.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs">
+        <a href="https://naal.org.tr" target="_blank" rel="noopener noreferrer" class="underline hover:text-foreground">Etkileşim Ağı</a>
+        <span>•</span>
+        <a href="https://github.com/naaltech/naal-bilim" target="_blank" rel="noopener noreferrer" class="underline hover:text-foreground">GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>

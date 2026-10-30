@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<section class="bg-gradient-to-b from-muted/70 to-transparent py-20">
+  <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+    <h1 class="mb-6 text-4xl font-bold text-foreground md:text-5xl">{title}</h1>
+    <p class="mx-auto max-w-2xl text-xl text-muted-foreground"><slot /></p>
+  </div>
+</section>

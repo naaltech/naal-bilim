@@ -17,9 +17,12 @@ let client: SupabaseClient | null = null
 
 function getClient() {
   if (client) return client
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  if (!url || !key) return null
+  const url = import.meta.env.SUPABASE_URL
+  const key = import.meta.env.SUPABASE_ANON_KEY
+  if (!url || !key) {
+    if (import.meta.env.PROD) throw new Error('SUPABASE_URL and SUPABASE_ANON_KEY must be set')
+    return null
+  }
   client = createClient(url, key, { auth: { persistSession: false } })
   return client
 }

@@ -6,7 +6,7 @@ Nevzat Ayaz Anadolu Lisesi Bilim Kulübü'nün resmi web sitesi: [bilim.naal.org
 
 ```bash
 # Ortam değişkenlerini hazırla
-cp .env.example .env.local
+cp .env.example .env
 
 # Bağımlılıkları yükle
 npm install
@@ -19,17 +19,17 @@ Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 
 ## Teknolojiler
 
-- Next.js 16
-- React 19
+- Astro
 - TypeScript
 - Tailwind CSS
 - Supabase
 
 ## Proje Yapısı
 
-- `/app` - Sayfa rotaları
-- `/components` - React bileşenleri
-- `/lib` - Supabase bağlantısı ve yardımcı fonksiyonlar
+- `/src/pages` - Sayfa rotaları
+- `/src/components` - Astro bileşenleri
+- `/src/layouts` - Sayfa iskeleti ve SEO etiketleri
+- `/src/lib` - Supabase bağlantısı ve yardımcı fonksiyonlar
 - `/public` - Statik dosyalar ve Naal Bilim dergisinden alınan çizimler
 
 ## Lisans

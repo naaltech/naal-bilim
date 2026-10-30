@@ -1,0 +1,57 @@
+---
+import "@fontsource-variable/geist"
+import "@/styles/global.css"
+
+interface Props {
+  title?: string
+  description?: string
+  path?: string
+}
+
+const siteUrl = "https://bilim.naal.org.tr"
+const siteTitle = "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü"
+const siteDescription = "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü: söyleşiler, geziler, çalıştaylar, belgesel analizleri ve bilim dergisi."
+const keywords = [
+  "Nevzat Ayaz Anadolu Lisesi",
+  "Bilim Kulübü",
+  "Bilim Atölyesi",
+  "Bilim Dergisi",
+  "Fen Bilimleri Çalıştayı",
+]
+
+const { title = siteTitle, description = siteDescription, path = "" } = Astro.props
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords.join(",")} />
+    <meta name="author" content={siteTitle} />
+    <meta name="category" content="education" />
+    <link rel="canonical" href={`${siteUrl}${path}`} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="/naalbilim.webp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:image" content={`${siteUrl}/og.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={siteTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDescription} />
+    <meta name="twitter:image" content={`${siteUrl}/og.png`} />
+  </head>
+  <body class="font-sans antialiased">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  formId: string
+  title: string
+}
+
+const { formId, title } = Astro.props
+---
+
+<iframe
+  data-tally-src={`https://tally.so/embed/${formId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
+  loading="lazy"
+  width="100%"
+  height="900"
+  title={title}
+  class="block w-full border-0"
+></iframe>
+<script is:inline async src="https://tally.so/widgets/embed.js" onload="window.Tally?.loadEmbeds()"></script>

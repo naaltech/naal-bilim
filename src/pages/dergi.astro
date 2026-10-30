@@ -1,0 +1,103 @@
+---
+import Footer from "@/components/Footer.astro"
+import Header from "@/components/Header.astro"
+import NumberTag from "@/components/NumberTag.astro"
+import PageHero from "@/components/PageHero.astro"
+import Layout from "@/layouts/Layout.astro"
+import { getMagazines, issueHref, issueLabel, publishedMonth, shortIssueLabel, toRoman } from "@/lib/supabase"
+
+const [current, ...previous] = await getMagazines()
+const href = current ? issueHref(current) : null
+const month = current ? publishedMonth(current) : null
+const paragraphs = (current?.description ?? "")
+  .split(/\n\s*\n/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean)
+---
+
+<Layout
+  title="Bilim Dergisi"
+  description="Nevzat Ayaz Anadolu Lisesi Bilim Kulübü'nün bilim dergisi: öğrencilerin yazdığı bilim makaleleri ve bulmacalar."
+  path="/dergi"
+>
+  <Header />
+
+  <main>
+    <PageHero title="Bilim Dergisi">Öğrencilerimizin yazdığı bilim makaleleri ve bulmacalar.</PageHero>
+
+    <section class="py-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {current ? (
+          <div class={`grid items-center gap-12 ${current.cover_url ? "md:grid-cols-[minmax(0,20rem)_1fr]" : ""}`}>
+            {current.cover_url && (
+              <a
+                href={href ?? undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mx-auto block w-full max-w-xs"
+              >
+                <img
+                  src={current.cover_url}
+                  alt={`Bilim Dergisi Sayı ${toRoman(current.issue_number)} kapağı`}
+                  width="720"
+                  height="1020"
+                  decoding="async"
+                  class="h-auto w-full rounded-lg border shadow-lg"
+                />
+              </a>
+            )}
+            <div>
+              <p class="tag bg-accent-yellow">{issueLabel(current)}</p>
+              {month && <p class="mt-2 text-sm text-muted-foreground">Yayımlandı · {month}</p>}
+              {paragraphs.map((paragraph) => <p class="mt-4 text-muted-foreground">{paragraph}</p>)}
+              {current.stories.length > 0 && (
+                <ol class="mt-8 grid gap-6 sm:grid-cols-3">
+                  {current.stories.map((story, index) => (
+                    <li class="card p-6">
+                      <NumberTag index={index}>{toRoman(index + 1)}</NumberTag>
+                      <p class="mt-3 font-semibold leading-snug text-foreground">{story.title}</p>
+                      {story.detail && <p class="mt-1 text-sm text-muted-foreground">{story.detail}</p>}
+                    </li>
+                  ))}
+                </ol>
+              )}
+              {href && (
+                <div class="mt-10 flex flex-wrap items-center gap-4">
+                  <a href={href} target="_blank" rel="noopener noreferrer" class="button">
+                    Dergiyi Oku
+                  </a>
+                </div>
+              )}
+              {previous.length > 0 && (
+                <p class="mt-8 border-t pt-4 text-sm text-muted-foreground">
+                  <span class="font-semibold text-foreground">{previous.length > 1 ? "Önceki Sayılar" : "Önceki Sayı"}</span>
+                  {previous.map((magazine) => {
+                    const previousHref = issueHref(magazine)
+                    return previousHref ? (
+                      <a
+                        href={previousHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="ml-3 underline hover:text-foreground"
+                      >
+                        {shortIssueLabel(magazine)}
+                      </a>
+                    ) : (
+                      <span class="ml-3">{shortIssueLabel(magazine)}</span>
+                    )
+                  })}
+                </p>
+              )}
+            </div>
+          </div>
+        ) : (
+          <p class="mx-auto max-w-2xl text-center text-muted-foreground">
+            Bilim Dergisi'nin yeni sayısı hazırlanıyor.
+          </p>
+        )}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{astro,ts}"],
   theme: {
     extend: {
       colors: {
@@ -23,7 +23,7 @@ const config: Config = {
         border: "hsl(var(--foreground) / 0.15)",
       },
       fontFamily: {
-        sans: ["var(--font-geist)", "system-ui", "sans-serif"],
+        sans: ["Geist Variable", "system-ui", "sans-serif"],
       },
     },
   },

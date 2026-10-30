@@ -1,0 +1,10 @@
+---
+interface Props {
+  svg: string
+  class: string
+}
+
+const { svg, class: className } = Astro.props
+---
+
+<Fragment set:html={svg.replace("<svg ", `<svg class="${className}" `)} />

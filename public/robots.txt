@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://bilim.naal.org.tr/sitemap.xml
