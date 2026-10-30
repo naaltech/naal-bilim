@@ -2,7 +2,10 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { Masthead, PageTitle } from "@/components/heading"
+import { Button } from "@/components/ui/button"
 import { getMagazines, issueHref, issueLabel, publishedMonth, shortIssueLabel, toRoman } from "@/lib/supabase"
+import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Dergi",
@@ -26,17 +29,11 @@ export default async function Dergi() {
       <Header />
 
       <main className="mx-auto max-w-page px-4 pt-12 md:px-6 md:pt-16">
-        <div className="smallcaps flex justify-between text-ink-soft">
-          <span>Nevzat Ayaz Anadolu Lisesi</span>
-          <span className="hidden sm:inline">Bilim Kulübü</span>
-        </div>
-        <h1 className="mt-6 text-center text-5xl font-semibold italic tracking-tight md:text-6xl">Naal Bilim Dergisi</h1>
-        <div className="rule mx-auto mt-4 max-w-[12rem]">
-          <span className="diamond" />
-        </div>
+        <Masthead />
+        <PageTitle>Naal Bilim Dergisi</PageTitle>
 
         {current ? (
-          <div className={`mt-12 grid items-center gap-12 ${current.cover_url ? "md:grid-cols-[minmax(0,20rem)_1fr]" : ""}`}>
+          <div className={cn("mt-12 grid items-center gap-12", current.cover_url && "md:grid-cols-[minmax(0,20rem)_1fr]")}>
             {current.cover_url && (
               <a
                 href={href ?? undefined}
@@ -50,13 +47,13 @@ export default async function Dergi() {
                   width={720}
                   height={1020}
                   priority
-                  className="h-auto w-full border border-ink/20 shadow-[0_18px_40px_-18px_rgba(46,31,18,0.55)]"
+                  className="h-auto w-full border border-foreground/20 shadow-[0_18px_40px_-18px_hsl(var(--foreground)/0.55)]"
                 />
               </a>
             )}
             <div>
-              <p className="smallcaps text-rubric">{issueLabel(current)}</p>
-              {month && <p className="mt-2 italic text-ink-soft">Yayımlandı · {month}</p>}
+              <p className="smallcaps text-primary">{issueLabel(current)}</p>
+              {month && <p className="mt-2 italic text-muted-foreground">Yayımlandı · {month}</p>}
               {paragraphs.map((paragraph) => (
                 <p key={paragraph} className="mt-4 text-lg leading-relaxed">
                   {paragraph}
@@ -65,29 +62,26 @@ export default async function Dergi() {
               {current.stories.length > 0 && (
                 <ol className="mt-8 grid gap-6 sm:grid-cols-3">
                   {current.stories.map((story, index) => (
-                    <li key={`${index}-${story.title}`} className="border-t border-ink/30 pt-4">
-                      <span className="font-display text-2xl font-semibold text-rubric">{toRoman(index + 1)}</span>
+                    <li key={`${index}-${story.title}`} className="border-t border-foreground/30 pt-4">
+                      <span className="font-display text-2xl font-semibold text-primary">{toRoman(index + 1)}</span>
                       <p className="mt-1 text-lg font-medium leading-snug">{story.title}</p>
-                      {story.detail && <p className="mt-1 text-sm italic text-ink-soft">{story.detail}</p>}
+                      {story.detail && <p className="mt-1 text-sm italic text-muted-foreground">{story.detail}</p>}
                     </li>
                   ))}
                 </ol>
               )}
               {href && (
                 <div className="mt-10 flex flex-wrap items-center gap-4">
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="smallcaps border border-rubric bg-rubric px-5 py-3 text-parchment-light hover:bg-ink hover:border-ink"
-                  >
-                    Dergiyi Oku
-                  </a>
+                  <Button asChild>
+                    <a href={href} target="_blank" rel="noopener noreferrer">
+                      Dergiyi Oku
+                    </a>
+                  </Button>
                 </div>
               )}
               {previous.length > 0 && (
-                <p className="mt-8 border-t border-ink/30 pt-4 text-ink-soft">
-                  <span className="smallcaps text-rubric">{previous.length > 1 ? "Önceki Sayılar" : "Önceki Sayı"}</span>
+                <p className="mt-8 border-t border-foreground/30 pt-4 text-muted-foreground">
+                  <span className="smallcaps text-primary">{previous.length > 1 ? "Önceki Sayılar" : "Önceki Sayı"}</span>
                   {previous.map((magazine) => {
                     const previousHref = issueHref(magazine)
                     return previousHref ? (
@@ -96,7 +90,7 @@ export default async function Dergi() {
                         href={previousHref}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-3 italic hover:text-rubric hover:underline"
+                        className="ml-3 italic hover:text-primary hover:underline"
                       >
                         {shortIssueLabel(magazine)}
                       </a>
@@ -111,7 +105,7 @@ export default async function Dergi() {
             </div>
           </div>
         ) : (
-          <p className="mx-auto mt-12 max-w-2xl text-center text-lg italic text-ink-soft">
+          <p className="mx-auto mt-12 max-w-2xl text-center text-lg italic text-muted-foreground">
             Naal Bilim&apos;in yeni sayısı hazırlanıyor.
           </p>
         )}

@@ -3,15 +3,30 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 41.4 52.5% 84.3%;
+    --foreground: 27.9 43.8% 12.5%;
+    --primary: 12.4 60.4% 37.6%;
+    --primary-foreground: 42.2 56.9% 87.3%;
+    --muted: 38.8 46.2% 79.6%;
+    --muted-foreground: 30 45.2% 24.3%;
+    --border: 27.9 43.8% 12.5%;
+    --ring: 12.4 60.4% 37.6%;
+    --radius: 0rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
   html {
-    background-color: theme("colors.parchment.DEFAULT");
+    @apply bg-background;
   }
 
   body {
+    @apply bg-background text-foreground;
     min-width: 320px;
     overflow-x: hidden;
-    color: theme("colors.ink.DEFAULT");
-    background-color: theme("colors.parchment.DEFAULT");
     background-image:
       radial-gradient(ellipse at 50% 0%, rgba(241, 230, 204, 0.9), transparent 60%),
       radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(176, 147, 113, 0.28) 100%);
@@ -32,7 +47,7 @@
   }
 
   ::selection {
-    background: rgba(154, 62, 38, 0.2);
+    background: hsl(var(--primary) / 0.2);
   }
 
   a {
@@ -43,23 +58,5 @@
 @layer components {
   .smallcaps {
     @apply font-display text-[0.8rem] font-semibold uppercase tracking-[0.22em];
-  }
-
-  .rule {
-    @apply relative flex items-center gap-3 text-rubric;
-  }
-
-  .rule::before,
-  .rule::after {
-    content: "";
-    @apply h-px flex-1 bg-ink/40;
-  }
-
-  .diamond {
-    @apply inline-block h-1.5 w-1.5 rotate-45 bg-rubric;
-  }
-
-  .dropcap::first-letter {
-    @apply float-left mr-2 mt-1 font-display text-[3.6rem] font-semibold leading-[0.8] text-rubric;
   }
 }

@@ -5,21 +5,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        parchment: {
-          DEFAULT: "#ECDFC2",
-          light: "#F1E6CC",
-          deep: "#E3D2B3",
-          edge: "#B09371",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        ink: {
-          DEFAULT: "#2E1F12",
-          soft: "#5A3E22",
-          faint: "#8A6E50",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        rubric: "#9A3E26",
-        sage: "#C1BF95",
-        rose: "#CDAF97",
-        ochre: "#CFB27F",
+        border: "hsl(var(--border))",
+        ring: "hsl(var(--ring))",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
         serif: ["var(--font-garamond)", "Georgia", "serif"],
