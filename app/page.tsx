@@ -3,8 +3,6 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { getClub, getMagazines, instagramHandle, issueLabel, splitList, toRoman } from "@/lib/supabase"
 
-export const revalidate = 300
-
 const fallbackDescription =
   "Bilimin sınırı yoktur. Her geçen gün gelişir ve hayatımızı kolaylaştırmaya yardımcı olur. Bilimi en iyi konuşarak, tartışarak ve bu konuda uzmanlara sorular sorarak öğrenebiliriz."
 

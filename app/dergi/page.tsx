@@ -4,8 +4,6 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { getMagazines, issueHref, issueLabel, publishedMonth, shortIssueLabel, toRoman } from "@/lib/supabase"
 
-export const revalidate = 300
-
 export const metadata: Metadata = {
   title: "Dergi",
   description: "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü'nün dergisi Naal Bilim: öğrencilerin yazdığı bilim makaleleri ve bulmacalar.",
