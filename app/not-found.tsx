@@ -1,16 +1,14 @@
 import Link from "next/link"
 import Header from "@/components/header"
-import { Ornament } from "@/components/ornament"
 
 export default function NotFound() {
   return (
     <>
       <Header />
-      <main className="mx-auto flex min-h-[70vh] max-w-page flex-col items-center justify-center px-4 text-center">
-        <p className="smallcaps text-primary">Sayfa bulunamadı</p>
-        <h1 className="mt-4 text-5xl font-semibold italic">Bu sayfa defterde yok.</h1>
-        <Ornament className="mt-6 w-full max-w-xs" />
-        <Link href="/" className="mt-6 text-lg italic text-muted-foreground hover:text-primary hover:underline">
+      <main className="mx-auto flex min-h-[70vh] max-w-7xl flex-col items-center justify-center px-4 text-center sm:px-6 lg:px-8">
+        <p className="tag bg-accent-yellow">Sayfa bulunamadı</p>
+        <h1 className="mb-8 mt-4 text-4xl font-bold text-foreground md:text-5xl">Bu sayfa defterde yok.</h1>
+        <Link href="/" className="button">
           Ana sayfaya dön
         </Link>
       </main>

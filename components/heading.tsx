@@ -1,28 +1,25 @@
-import { Ornament } from "@/components/ornament"
-
-export function Masthead() {
+export function PageHero({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="smallcaps flex justify-between text-muted-foreground">
-      <span>Nevzat Ayaz Anadolu Lisesi</span>
-      <span className="hidden sm:inline">Bilim Kulübü</span>
-    </div>
+    <section className="bg-gradient-to-b from-muted/70 to-transparent py-20">
+      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <h1 className="mb-6 text-4xl font-bold text-foreground md:text-5xl">{title}</h1>
+        <p className="mx-auto max-w-2xl text-xl text-muted-foreground">{children}</p>
+      </div>
+    </section>
   )
 }
 
-export function PageTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <h1 className="mt-6 text-center text-5xl font-semibold italic tracking-tight md:text-6xl">{children}</h1>
-      <Ornament className="mx-auto mt-4 max-w-[12rem]" />
-    </>
-  )
+const tagColors = ["bg-primary", "bg-accent-cyan", "bg-accent-yellow"]
+
+export function NumberTag({ index, children }: { index: number; children: React.ReactNode }) {
+  return <span className={`tag ${tagColors[index % tagColors.length]}`}>{children}</span>
 }
 
-export function SectionTitle({ children }: { children: React.ReactNode }) {
+export function SectionTitle({ children, description }: { children: React.ReactNode; description?: string }) {
   return (
-    <div className="text-center">
-      <h2 className="text-4xl font-semibold italic tracking-tight md:text-5xl">{children}</h2>
-      <Ornament className="mx-auto mt-4 max-w-[12rem]" />
+    <div className="mb-12 text-center">
+      <h2 className="mb-4 text-3xl font-bold text-foreground">{children}</h2>
+      {description && <p className="mx-auto max-w-2xl text-muted-foreground">{description}</p>}
     </div>
   )
 }

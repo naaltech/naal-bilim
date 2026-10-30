@@ -1,31 +1,60 @@
-import Image from "next/image"
+const pages = [
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/dergi", label: "Dergi" },
+  { href: "/#calistay", label: "Çalıştay" },
+  { href: "/basvuru", label: "Başvuru" },
+  { href: "/#instagram", label: "Instagram" },
+]
 
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-foreground/25">
-      <div className="mx-auto max-w-page px-4 pt-16 md:px-6">
+    <footer className="border-t bg-muted/60">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        {/*
         <Image
           src="/agac.webp"
           alt="Kökleri ve dallarıyla bir ağaç çizimi"
           width={1100}
           height={976}
-          className="mx-auto h-auto w-full max-w-xl"
+          className="mx-auto mb-10 h-auto w-full max-w-xl"
         />
-        <div className="mt-10 flex items-center justify-center gap-8">
-          <Image src="/bilim-logo.webp" alt="Bilim Kulübü" width={96} height={70} className="h-auto w-24" />
-          <Image src="/naal-logo.webp" alt="Nevzat Ayaz Anadolu Lisesi" width={40} height={62} className="h-auto w-10" />
+        */}
+        <div className="grid gap-8 md:grid-cols-3">
+          <div>
+            <h3 className="mb-2 text-lg font-semibold text-foreground">Bilim Kulübü</h3>
+            <p className="text-sm text-muted-foreground">Nevzat Ayaz Anadolu Lisesi Bilim Kulübü</p>
+          </div>
+          <div>
+            <h4 className="mb-2 text-sm font-semibold text-foreground">Sayfalar</h4>
+            <ul className="space-y-1 text-sm text-muted-foreground">
+              {pages.map((page) => (
+                <li key={page.href}>
+                  <a href={page.href} className="hover:text-foreground">{page.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-2 text-sm font-semibold text-foreground">İletişim</h4>
+            <div className="space-y-1 text-sm text-muted-foreground">
+              <p>Nevzat Ayaz Anadolu Lisesi</p>
+              <p>
+                <a href="mailto:bilim@naal.org.tr" className="underline hover:text-foreground">bilim@naal.org.tr</a>
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="mt-10 space-y-1 pb-10 text-center text-sm italic text-muted-foreground">
-          <p>
+        <div className="mt-6 border-t pt-6 text-center text-sm text-muted-foreground">
+          <p className="mb-2">
             © {new Date().getFullYear()} Nevzat Ayaz Anadolu Lisesi Bilim Kulübü. | Bu proje{" "}
-            <a href="https://raw.githubusercontent.com/naaltech/naal-bilim/refs/heads/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-primary hover:underline">GPLv3</a>{" "}
+            <a href="https://raw.githubusercontent.com/naaltech/naal-bilim/refs/heads/main/LICENSE" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">GPLv3</a>{" "}
             ile lisanslanmıştır.
           </p>
-          <p>
-            <a href="https://naal.org.tr" target="_blank" rel="noopener noreferrer" className="hover:text-primary hover:underline">Etkileşim Ağı</a>
-            <span className="mx-2">·</span>
-            <a href="https://github.com/naaltech/naal-bilim" target="_blank" rel="noopener noreferrer" className="hover:text-primary hover:underline">GitHub</a>
-          </p>
+          <div className="flex items-center justify-center gap-4 text-xs">
+            <a href="https://naal.org.tr" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Etkileşim Ağı</a>
+            <span>•</span>
+            <a href="https://github.com/naaltech/naal-bilim" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">GitHub</a>
+          </div>
         </div>
       </div>
     </footer>

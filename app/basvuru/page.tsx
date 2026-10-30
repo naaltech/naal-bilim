@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Masthead, PageTitle } from "@/components/heading"
+import { PageHero } from "@/components/heading"
 import TallyEmbed from "@/components/tally-embed"
 
 export const metadata: Metadata = {
@@ -17,16 +17,18 @@ export default function Basvuru() {
     <>
       <Header />
 
-      <main className="mx-auto max-w-page px-4 pt-12 md:px-6 md:pt-16">
-        <Masthead />
-        <PageTitle>Başvuru</PageTitle>
-        <p className="mx-auto mt-8 max-w-2xl text-center text-lg leading-relaxed">
+      <main>
+        <PageHero title="Başvuru">
           Bilime merakı olan her öğrencimizi kulübümüze bekliyoruz. Formu doldurduktan sonra kulüp ekibi seninle
           e-posta ya da telefon üzerinden iletişime geçecek.
-        </p>
-        <div className="mx-auto mt-10 max-w-2xl border-t border-foreground/30 pt-6">
-          <TallyEmbed formId="M11WDg" title="Bilim Kulübü Üyelik Başvuru Formu" />
-        </div>
+        </PageHero>
+        <section className="py-16">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="card p-6">
+              <TallyEmbed formId="M11WDg" title="Bilim Kulübü Üyelik Başvuru Formu" />
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

@@ -2,14 +2,12 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Masthead, PageTitle } from "@/components/heading"
-import { Button } from "@/components/ui/button"
+import { NumberTag, PageHero } from "@/components/heading"
 import { getMagazines, issueHref, issueLabel, publishedMonth, shortIssueLabel, toRoman } from "@/lib/supabase"
-import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
-  title: "Dergi",
-  description: "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü'nün dergisi Naal Bilim: öğrencilerin yazdığı bilim makaleleri ve bulmacalar.",
+  title: { absolute: "Bilim Dergisi" },
+  description: "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü'nün bilim dergisi: öğrencilerin yazdığı bilim makaleleri ve bulmacalar.",
   alternates: {
     canonical: "https://bilim.naal.org.tr/dergi",
   },
@@ -28,87 +26,88 @@ export default async function Dergi() {
     <>
       <Header />
 
-      <main className="mx-auto max-w-page px-4 pt-12 md:px-6 md:pt-16">
-        <Masthead />
-        <PageTitle>Naal Bilim Dergisi</PageTitle>
+      <main>
+        <PageHero title="Bilim Dergisi">Öğrencilerimizin yazdığı bilim makaleleri ve bulmacalar.</PageHero>
 
-        {current ? (
-          <div className={cn("mt-12 grid items-center gap-12", current.cover_url && "md:grid-cols-[minmax(0,20rem)_1fr]")}>
-            {current.cover_url && (
-              <a
-                href={href ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mx-auto block w-full max-w-xs"
-              >
-                <Image
-                  src={current.cover_url}
-                  alt={`Naal Bilim dergisi Sayı ${toRoman(current.issue_number)} kapağı`}
-                  width={720}
-                  height={1020}
-                  priority
-                  className="h-auto w-full border border-foreground/20 shadow-[0_18px_40px_-18px_hsl(var(--foreground)/0.55)]"
-                />
-              </a>
-            )}
-            <div>
-              <p className="smallcaps text-primary">{issueLabel(current)}</p>
-              {month && <p className="mt-2 italic text-muted-foreground">Yayımlandı · {month}</p>}
-              {paragraphs.map((paragraph) => (
-                <p key={paragraph} className="mt-4 text-lg leading-relaxed">
-                  {paragraph}
-                </p>
-              ))}
-              {current.stories.length > 0 && (
-                <ol className="mt-8 grid gap-6 sm:grid-cols-3">
-                  {current.stories.map((story, index) => (
-                    <li key={`${index}-${story.title}`} className="border-t border-foreground/30 pt-4">
-                      <span className="font-display text-2xl font-semibold text-primary">{toRoman(index + 1)}</span>
-                      <p className="mt-1 text-lg font-medium leading-snug">{story.title}</p>
-                      {story.detail && <p className="mt-1 text-sm italic text-muted-foreground">{story.detail}</p>}
-                    </li>
+        <section className="py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {current ? (
+              <div className={`grid items-center gap-12 ${current.cover_url ? "md:grid-cols-[minmax(0,20rem)_1fr]" : ""}`}>
+                {current.cover_url && (
+                  <a
+                    href={href ?? undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mx-auto block w-full max-w-xs"
+                  >
+                    <Image
+                      src={current.cover_url}
+                      alt={`Bilim Dergisi Sayı ${toRoman(current.issue_number)} kapağı`}
+                      width={720}
+                      height={1020}
+                      priority
+                      className="h-auto w-full rounded-lg border shadow-lg"
+                    />
+                  </a>
+                )}
+                <div>
+                  <p className="tag bg-accent-yellow">{issueLabel(current)}</p>
+                  {month && <p className="mt-2 text-sm text-muted-foreground">Yayımlandı · {month}</p>}
+                  {paragraphs.map((paragraph) => (
+                    <p key={paragraph} className="mt-4 text-muted-foreground">
+                      {paragraph}
+                    </p>
                   ))}
-                </ol>
-              )}
-              {href && (
-                <div className="mt-10 flex flex-wrap items-center gap-4">
-                  <Button asChild>
-                    <a href={href} target="_blank" rel="noopener noreferrer">
-                      Dergiyi Oku
-                    </a>
-                  </Button>
-                </div>
-              )}
-              {previous.length > 0 && (
-                <p className="mt-8 border-t border-foreground/30 pt-4 text-muted-foreground">
-                  <span className="smallcaps text-primary">{previous.length > 1 ? "Önceki Sayılar" : "Önceki Sayı"}</span>
-                  {previous.map((magazine) => {
-                    const previousHref = issueHref(magazine)
-                    return previousHref ? (
-                      <a
-                        key={magazine.id}
-                        href={previousHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-3 italic hover:text-primary hover:underline"
-                      >
-                        {shortIssueLabel(magazine)}
+                  {current.stories.length > 0 && (
+                    <ol className="mt-8 grid gap-6 sm:grid-cols-3">
+                      {current.stories.map((story, index) => (
+                        <li key={`${index}-${story.title}`} className="card p-6">
+                          <NumberTag index={index}>{toRoman(index + 1)}</NumberTag>
+                          <p className="mt-3 font-semibold leading-snug text-foreground">{story.title}</p>
+                          {story.detail && <p className="mt-1 text-sm text-muted-foreground">{story.detail}</p>}
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                  {href && (
+                    <div className="mt-10 flex flex-wrap items-center gap-4">
+                      <a href={href} target="_blank" rel="noopener noreferrer" className="button">
+                        Dergiyi Oku
                       </a>
-                    ) : (
-                      <span key={magazine.id} className="ml-3 italic">
-                        {shortIssueLabel(magazine)}
-                      </span>
-                    )
-                  })}
-                </p>
-              )}
-            </div>
+                    </div>
+                  )}
+                  {previous.length > 0 && (
+                    <p className="mt-8 border-t pt-4 text-sm text-muted-foreground">
+                      <span className="font-semibold text-foreground">{previous.length > 1 ? "Önceki Sayılar" : "Önceki Sayı"}</span>
+                      {previous.map((magazine) => {
+                        const previousHref = issueHref(magazine)
+                        return previousHref ? (
+                          <a
+                            key={magazine.id}
+                            href={previousHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ml-3 underline hover:text-foreground"
+                          >
+                            {shortIssueLabel(magazine)}
+                          </a>
+                        ) : (
+                          <span key={magazine.id} className="ml-3">
+                            {shortIssueLabel(magazine)}
+                          </span>
+                        )
+                      })}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <p className="mx-auto max-w-2xl text-center text-muted-foreground">
+                Bilim Dergisi&apos;nin yeni sayısı hazırlanıyor.
+              </p>
+            )}
           </div>
-        ) : (
-          <p className="mx-auto mt-12 max-w-2xl text-center text-lg italic text-muted-foreground">
-            Naal Bilim&apos;in yeni sayısı hazırlanıyor.
-          </p>
-        )}
+        </section>
       </main>
 
       <Footer />

@@ -1,30 +1,21 @@
 import type { Metadata } from "next"
-import { Cormorant_Garamond, EB_Garamond } from "next/font/google"
+import { Geist } from "next/font/google"
 import "./globals.css"
 
-const garamond = EB_Garamond({
+const geist = Geist({
   subsets: ["latin", "latin-ext"],
-  style: ["normal", "italic"],
-  weight: ["400", "500", "600"],
-  variable: "--font-garamond",
+  variable: "--font-geist",
   display: "swap",
 })
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin", "latin-ext"],
-  weight: ["500", "600"],
-  variable: "--font-cormorant",
-  display: "swap",
-})
-
-const title = "Naal Bilim - Nevzat Ayaz Anadolu Lisesi Bilim Kulübü"
-const description = "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü: söyleşiler, geziler, çalıştaylar, belgesel analizleri ve Naal Bilim dergisi."
+const title = "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü"
+const description = "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü: söyleşiler, geziler, çalıştaylar, belgesel analizleri ve bilim dergisi."
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bilim.naal.org.tr"),
   title: {
     default: title,
-    template: "%s | Naal Bilim",
+    template: "%s | Nevzat Ayaz Anadolu Lisesi Bilim Kulübü",
   },
   description,
   icons: {
@@ -32,11 +23,10 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   keywords: [
-    "Naal Bilim",
     "Nevzat Ayaz Anadolu Lisesi",
     "Bilim Kulübü",
     "Bilim Atölyesi",
-    "Naal Bilim Dergisi",
+    "Bilim Dergisi",
     "Fen Bilimleri Çalıştayı",
   ],
   authors: [{ name: "Nevzat Ayaz Anadolu Lisesi Bilim Kulübü" }],
@@ -46,8 +36,8 @@ export const metadata: Metadata = {
     url: "https://bilim.naal.org.tr",
     title,
     description,
-    siteName: "Naal Bilim",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Naal Bilim" }],
+    siteName: title,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: title }],
   },
   twitter: {
     card: "summary_large_image",
@@ -67,9 +57,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="tr" className={`${garamond.variable} ${cormorant.variable}`}>
-      <body className="font-serif antialiased">
-        <div className="relative z-10">{children}</div>
+    <html lang="tr" className={geist.variable}>
+      <body className="font-sans antialiased">
+        {children}
       </body>
     </html>
   )

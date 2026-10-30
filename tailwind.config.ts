@@ -11,24 +11,19 @@ const config: Config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        accent: {
+          cyan: "hsl(var(--accent-cyan))",
+          yellow: "hsl(var(--accent-yellow))",
+        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
-        border: "hsl(var(--border))",
-        ring: "hsl(var(--ring))",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        card: "hsl(var(--card))",
+        border: "hsl(var(--foreground) / 0.15)",
       },
       fontFamily: {
-        serif: ["var(--font-garamond)", "Georgia", "serif"],
-        display: ["var(--font-cormorant)", "var(--font-garamond)", "Georgia", "serif"],
-      },
-      maxWidth: {
-        page: "68rem",
+        sans: ["var(--font-geist)", "system-ui", "sans-serif"],
       },
     },
   },

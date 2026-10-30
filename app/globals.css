@@ -4,15 +4,15 @@
 
 @layer base {
   :root {
-    --background: 41.4 52.5% 84.3%;
-    --foreground: 27.9 43.8% 12.5%;
-    --primary: 12.4 60.4% 37.6%;
-    --primary-foreground: 42.2 56.9% 87.3%;
-    --muted: 38.8 46.2% 79.6%;
-    --muted-foreground: 30 45.2% 24.3%;
-    --border: 27.9 43.8% 12.5%;
-    --ring: 12.4 60.4% 37.6%;
-    --radius: 0rem;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 4%;
+    --primary: 140 65% 56.5%;
+    --primary-foreground: 0 0% 4%;
+    --accent-cyan: 186 77% 60%;
+    --accent-yellow: 52 94% 50%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 32%;
+    --card: 0 0% 100%;
   }
 
   * {
@@ -27,27 +27,11 @@
     @apply bg-background text-foreground;
     min-width: 320px;
     overflow-x: hidden;
-    background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(241, 230, 204, 0.9), transparent 60%),
-      radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(176, 147, 113, 0.28) 100%);
-    background-attachment: fixed;
-    font-feature-settings: "kern", "liga", "onum";
     text-rendering: optimizeLegibility;
   }
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.35;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.14 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
   ::selection {
-    background: hsl(var(--primary) / 0.2);
+    background: hsl(var(--accent-yellow) / 0.5);
   }
 
   a {
@@ -56,7 +40,19 @@
 }
 
 @layer components {
-  .smallcaps {
-    @apply font-display text-[0.8rem] font-semibold uppercase tracking-[0.22em];
+  .button {
+    @apply inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90;
+  }
+
+  .button-outline {
+    @apply inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md border border-foreground/30 bg-transparent px-8 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted;
+  }
+
+  .card {
+    @apply rounded-lg border bg-card shadow-sm;
+  }
+
+  .tag {
+    @apply inline-block rounded-md px-2 py-0.5 text-sm font-semibold text-foreground;
   }
 }

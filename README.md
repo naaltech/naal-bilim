@@ -23,14 +23,12 @@ Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 - React 19
 - TypeScript
 - Tailwind CSS
-- shadcn/ui
 - Supabase
 
 ## Proje Yapısı
 
 - `/app` - Sayfa rotaları
 - `/components` - React bileşenleri
-- `/components/ui` - shadcn/ui bileşenleri
 - `/lib` - Supabase bağlantısı ve yardımcı fonksiyonlar
 - `/public` - Statik dosyalar ve Naal Bilim dergisinden alınan çizimler
 
