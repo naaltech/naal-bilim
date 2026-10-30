@@ -5,8 +5,10 @@ import Footer from "@/components/footer"
 import { NumberTag, SectionTitle } from "@/components/heading"
 import { getClub, getMagazines, instagramHandle, issueLabel, splitList, toRoman } from "@/lib/supabase"
 
-const fallbackDescription =
-  "Bilimin sınırı yoktur. Her geçen gün gelişir ve hayatımızı kolaylaştırmaya yardımcı olur. Bilimi en iyi konuşarak, tartışarak ve bu konuda uzmanlara sorular sorarak öğrenebiliriz."
+const paragraphs = [
+  "Bilimin sınırı yok; her gün yeni bir soru, yeni bir cevap getiriyor. Biz de bilimi yalnızca okuyarak değil, konuşarak, tartışarak ve uzmanlara soru sorarak öğreniyoruz. Atölyemiz tam olarak bunun için var.",
+  "Meraklı ve araştırmayı seven öğrencilerle söyleşiler düzenliyor, gezilere çıkıyor, çalıştaylar yapıyor ve belgeselleri birlikte inceliyoruz. Burada hem bilimi öğrenecek hem de bu süreçte eğleneceksin.",
+]
 
 const activities = [
   {
@@ -51,10 +53,6 @@ export default async function Home() {
   const [club, magazines] = await Promise.all([getClub(), getMagazines()])
   const magazine = magazines[0]
   const instagramAccounts = splitList(club?.instagram ?? "naalbilim").map(instagramHandle)
-  const paragraphs = (club?.description || fallbackDescription)
-    .split(/\n\s*\n/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean)
 
   return (
     <>
@@ -69,13 +67,14 @@ export default async function Home() {
               width={576}
               height={420}
               priority
-              className="mx-auto mb-10 h-auto w-full max-w-sm sm:max-w-xl"
+              className="mx-auto mb-10 h-auto w-full max-w-xs sm:max-w-md"
             />
             <h1 className="mb-6 text-4xl font-bold text-foreground md:text-6xl">
               Nevzat Ayaz Anadolu Lisesi
               <span className="block text-muted-foreground">Bilim Kulübü</span>
             </h1>
-            <p className="mx-auto mb-8 max-w-3xl text-xl text-muted-foreground">Bilim ile yeniden doğacağız.</p>
+            <p className="mx-auto mb-2 max-w-3xl text-xl text-muted-foreground">“Tüm bilginin sınavı deneydir.” — Richard Feynman</p>
+            <p lang="en" className="mx-auto mb-8 max-w-3xl text-sm text-muted-foreground">“The test of all knowledge is experiment.”</p>
             <div className="mx-auto flex max-w-md flex-col items-center justify-center gap-3 sm:max-w-none sm:flex-row sm:gap-4">
               <a href="/basvuru" className="button w-full sm:w-auto">Başvuru Yap</a>
               <a href="mailto:bilim@naal.org.tr" className="button-outline w-full sm:w-auto">İletişim</a>
